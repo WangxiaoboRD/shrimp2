@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	<!--该属性设置Struts 2应用是否使用开发模式.如果设置该属性为true,则可以在应用出错时显示更多、更友好的出错提示.该属性只接受true和flase两个值,该属性的默认值是false.通常,应用在开发阶段,将该属性设置为true,当进入产品发布阶段后,则该属性设置为false. -->  
+    <constant name="struts.devMode" value="true" />
+    <!-- 
+	<constant name="struts.action.excludePattern" value="/ReportServer,/PsWebservice"></constant>
+	 -->
+	<!-- 动态方法调用支持 默认值为true 设置为false将不支持 -->
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <!-- 编码 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<!-- 国际化资源文件名称 -->
+	<constant name="struts.custom.i18n.resources" value="i18n" />
+	<!--该属性设置是否每次HTTP请求到达时,系统都重新加载资源文件(允许国际化文件重载).该属性默认值是false.在开发阶段将该属性设置为true会更有利于开发,但在产品发布阶段应将该属性设置为false.提示:开发阶段将该属性设置了true,将可以在每次请求时都重新加载国际化资源文件,从而可以让开发者看到实时开发效果;产品发布阶段应该将该属性设置为false,是为了提供响应性能,每次请求都需要重新加载资源文件会大大降低应用的性能. -->  
+	<constant name="struts.i18n.reload" value="true" />
+	<!-- 主题 -->  
+    <constant name="struts.ui.theme" value="simple" />  
+    <!-- 地区 -->  
+    <constant name="struts.locale" value="zh_CN" />  
+	<!-- 配置使用Spring管理Action 
+	<constant name="struts.objectFactory" value="spring"/>-->
+	<!--该属性设置浏览器是否缓存静态内容.当应用处于开发阶段时,我们希望每次请求都获得服务器的最新响应,则可设置该属性为false. -->  
+ 	<constant name="struts.serve.static.browserCache" value="false" />  
+	<!--该属性指定Struts 2文件上传中整个请求内容允许的最大字节数. -->  
+ 	<constant name="struts.multipart.maxSize" value="10485760" /> 
+	
+	<!--该属性指定处理multipart/form-data的MIME类型(文件上传)请求的框架,该属性支持cos,pell和jakarta等属性值, 即分别对应使用cos的文件上传框架,pell上传及common-fileupload文件上传框架.该属性的默认值为jakarta.注意:如果需要使用cos或者pell的文件上传方式,则应该将对应的JAR文件复制到Web应用中.例如,使用cos上传方式,则需要自己下载cos框架的JAR文件,并将该文件放在WEB-INF/lib路径下.   
+ 	<constant name="struts.multipart.parser" value="jakarta" /> -->
+	<!--指定Spring框架的自动装配模式, 该属性的默认值是name, 即默认根据Bean的name属性自动装配.   
+    <constant name="struts.objectFactory.spring.autoWire" value="name" /> -->
+    <!--该属性指定整合Spring框架时,是否缓存Bean实例,该属性只允许使用true和false两个属性值,它的默认值是true.通常不建议修改该属性值.   
+ 	<constant name="struts.objectFactory.spring.useClassCache" value="true" />-->  
+   	<!--该属性指定上传文件的临时保存路径,该属性的默认值是javax.servlet.context.tempdir.   
+ 	<constant name="struts.multipart.saveDir" value="" /> --> 
+    <!--该属性指定需要Struts 2处理的请求后缀,该属性的默认值是action,即所有匹配*.action的请求都由Struts 2处理.如果用户需要指定多个请求后缀,则多个后缀之间以英文逗号(,)隔开.   
+ 	<constant name="struts.action.extension" value="do" />  -->
+    <!--该属性设置是否通过JAR文件提供静态内容服务,该属性只支持true和false属性值,该属性的默认属性值是true.   
+ 	<constant name="struts.serve.static" value="true" />  -->
+    <!--该属性设置浏览器是否缓存静态内容.当应用处于开发阶段时,我们希望每次请求都获得服务器的最新响应,则可设置该属性为false.   
+ 	<constant name="struts.serve.static.browserCache" value="true" />  -->
+    <!--该属性指定模板文件的后缀,该属性的默认属性值是ftl.该属性还允许使用ftl、vm或jsp,分别对应FreeMarker、Velocity和JSP模板.   
+ 	<constant name="struts.ui.templateSuffix" value="ftl" />  -->
+    <!--该属性设置当struts.xml文件改变后,系统是否自动重新加载该文件.该属性的默认值是false.   
+ 	<constant name="struts.configuration.xml.reload" value="false" />  -->
+    <!--该属性指定Struts 2应用所需要的国际化资源文件,如果有多份国际化资源文件,则多个资源文件的文件名以英文逗号(,)隔开.   
+ 	<constant name="struts.custom.i18n.resources" value="nationz" />  -->
+    <!--对于某些Java EE服务器,不支持HttpServlet Request调用getParameterMap()方法,此时可以设置该属性值为true来解决该问题.该属性的默认值是false.对于WebLogic、Orion和OC4J服务器,通常应该设置该属性为true.   
+ 	<constant name="struts.dispatcher.parametersWorkaround" value="false" />  -->
+    <!--指定是否缓存FreeMarker模版。默认值false。  
+ 	<constant name="struts.freemarker.templatesCache" value="true" />  -->
+    <!--该属性只支持true和false两个属性值,默认值是true.通常无需修改该属性值.  
+ 	<constant name="struts.freemarker.wrapper.altMap" value="true" />   -->
+    <!--该属性指定XSLT Result是否使用样式表缓存.当应用处于开发阶段时,该属性通常被设置为true;当应用处于产品使用阶段时,该属性通常被设置为false.   
+ 	<constant name="struts.xslt.nocache" value="true" />  -->
+    <!--该属性指定Struts 2框架默认加载的配置文件,如果需要指定默认加载多个配置文件,则多个配置文件的文件名之间以英文逗号(,)隔开.该属性的默认值为struts-default.xml,struts-plugin.xml,struts.xml,看到该属性值,所以应该明白为什么Struts 2框架默认加载struts.xml文件了.   
+ 	<constant name="struts.configuration.files" value="struts-default.xml,struts-plugin.xml,struts.xml" />  -->
+    <!--设置映射器是否总是选择完整的名称空间。该属性的默认值时false。  
+ 	<constant name="struts.mapper.alwaysSelectFullNamespace" value="false" /> -->
+ 	<!-- 以上配置是struts2中的constant配置详解 很多配置都是在default.properties中默认配置过了  -->
+  
+  	<!-- 下面是对Convention的配置 默认配置都在Convention插件的struts-plugin.xml中 -->
+    <!-- 设置Convention插件定位视图资源的根路径。默认值为/WEB-INF/content-->  
+    <constant name="struts.convention.result.path" value="/page/"/>
+    <!-- 设置映射Action时指定name属性值个单词之间的分隔符。默认值是中画线 -->
+	<constant name="struts.convention.action.name.separator" value="_"/>
+    <!-- Convention插件使用该常量指定包作为搜索Action的根包默认值是action,actions,struts,strtus2 -->
+	<constant name="struts.convention.package.locators" value="actions"/>
+	<!-- 如果指定了该常量，Convention只会从以该常量值开始的包中搜索Action类。 -->
+	<constant name="struts.convention.package.locators.basePackage" value=""/>
+	<!-- 设置Convention映射的Action所在包的默认父包。默认值是convention-default-->
+	<constant name="struts.convention.default.parent.package" value="Base"/> 
+	
+    <!-- 是否结果类型作为文件名的一部分。假如结果返回值为error，则true时为hello_world_error.jsp，false时为hello_world/error.jsp 
+	<constant name="struts.convention.result.flatLayout" value="true"/>-->
+	<!-- Convention搜索Action类的类名后缀。默认值为Action  
+	<constant name="struts.convention.action.suffix" value="Action"/>--> 
+	<!-- 是否通过禁止包扫描Action。默认值是false    
+	<constant name="struts.convention.action.disableScanning" value="false"/>-->
+	<!-- 设置即使没有@Action注释，依然创建Action映射。默认值是false 
+	<constant name="struts.convention.action.mapAllMatches" value="false"/> -->
+	<!-- 设置是否实现了Action接口的类映射成Action。默认值是ture  
+	<constant name="struts.convention.action.checkImplementsAction" value="true"/>-->
+	<!-- 设置映射Action时，是否将Action的name属性值转为所有字母小写。默认值是true  
+	<constant name="struts.convention.action.name.lowercase" value="true"/>-->
+	<!-- 指定禁止从Action的根包里所搜Action。默认值是false  
+	<constant name="struts.convention.package.locators.disable" value="false"/>-->
+	<!-- 指定排除在搜索Action之外的包。默认值为org.apache.struts.*,org.apache.struts2.*,org.springframework.web.struts.*, org.springframework.web.struts2.*,org.hibernate.*  
+	<constant name="struts.convention.exclude.packages" value="org.apache.struts.*,org.apache.struts2.*,org.springframework.web.struts.*,org.springframework.web.struts2.*,org.hibernate.*"/>-->
+	<!-- 设置是否重定向到斜线（/）。例如用户请求/foo，但/foo不存在时，如果设置该常量为则可重定向到/foo/。默认值是true  
+	<constant name="struts.convention.redirect.to.slash" value="true"/>-->
+	<!-- 不是很清楚，测试结果为：设置成false则报没有no action mapped，应该是默认是否执行execute()方法 
+	<constant name="struts.convention.action.alwaysMapExecute" value="true"/>-->
+	<!-- 设定是否一直在最后一个斜线之前的任何位置选定namespace，测试结果为无任何影响，情况不明 
+	<constant name="struts.mapper.alwaysSelectFullNamespace" value="true"/>-->
+	<!-- 包括的jar,一般用于大型项目，其action一般打包成jar   
+	<constant name="struts.convention.action.fileProtocols" value="jar" />-->
+  	<!-- 是否自动重新加载action 
+  	<constant name="struts.convention.classes.reload" value="false" />-->
+  	<!-- 官方只说明在jboss下需要设置，情况不明 
+  	<constant name="struts.convention.exclude.parentClassLoader" value="true" />-->
+
+    <!-- 普通请求访问时所需要的拦截器 -->
+  	<package name="Base_Interceptor" extends="json-default" abstract="true">
+  		
+   		<interceptors>
+			<!-- 获取session缓存的的拦截器 
+			<interceptor name="getCacheContext" class="com.zd.epa.interceptor.GetCacheContextInterceptor"/>-->
+			<!-- 业务操作日志拦截器 -->
+			<interceptor name="bussOperateLog" class="com.cp.epa.interceptor.BussOperInterceptor"/>
+			<!-- 操作日志拦截器 -->
+			<interceptor name="operateLog" class="com.cp.epa.interceptor.OperateInterceptor"/>
+			<!-- 异常日志拦截器 -->
+			<interceptor name="exceptionLog" class="com.cp.epa.interceptor.ExceptionInterceptor"/>
+			<!-- 异常拦截器结果集监听处理 
+			<interceptor name="exceptionPreResult" class="com.zd.epa.interceptor.ExceptionPreResultInterceptor"/>-->
+			<!-- 单据模式处理拦截器 
+			<interceptor name="detail" class="com.zd.epa.interceptor.DetailInterceptor"/>-->
+			<!-- 程序跟踪拦截器 -->
+			<interceptor name="followIntercept" class="com.cp.epa.interceptor.FollowInterceptor"/>
+			
+			<interceptor-stack name="BackStack">
+				<!--<interceptor-ref name="exceptionLog" />
+			    <interceptor-ref name="exceptionPreResult" />			    
+				<interceptor-ref name="getCacheContext" />-->
+				<interceptor-ref name="bussOperateLog" />
+				<interceptor-ref name="operateLog" />
+				<interceptor-ref name="followIntercept" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<!-- 设置登录的默认拦截器 -->
+		<default-interceptor-ref name="BackStack" />
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+    </package>
+    
+    <!-- 配置登录时所需要的拦截器 -->
+    <package name="login_Interceptor" extends="json-default" abstract="true">
+    	<interceptors>
+			<!-- 验证码验证的拦截器 -->
+			<!--  <interceptor name="CaptchaCheck" class="com.cp.epa.interceptor.CaptchaCheckInterceptor"/>-->
+			<!-- 登陆日志 -->
+			<interceptor name="loginLog" class="com.cp.epa.interceptor.LogInterceptor"/>
+			<interceptor-stack name="loginStack">
+				<!--  <interceptor-ref name="CaptchaCheck" />-->
+				<interceptor-ref name="loginLog" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<!-- 设置登录的默认拦截器 -->
+		<default-interceptor-ref name="loginStack" />
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+    </package>
+    <!-- 定义普通请求访问时所使用的package包 -->
+    <package name="Base" extends="Base_Interceptor"/> 
+    <!-- 定义登录时所使用的package包 -->
+    <package name="login" extends="login_Interceptor"/>
+
+</struts>

@@ -1,0 +1,404 @@
+.l-icon {
+	width: 16px;
+	height: 16px;
+	overflow: hidden;
+}
+
+.l-icon-user_go{
+	background: url('icons/user_go.png') no-repeat center;
+}
+
+.l-icon-user{
+	background: url('icons/user.png') no-repeat center;
+}
+
+.l-icon-adjust{
+	background: url('icons/user_edit.png') no-repeat center;
+}
+
+.l-icon-table_add{
+	background: url('icons/table_add.png') no-repeat center;
+}
+
+.l-icon-monitor_go{
+	background: url('icons/monitor_go.png') no-repeat center;
+}
+.l-icon-export {
+	background: url('icons/export.gif') no-repeat center;
+}
+
+.l-icon-preview1 {
+	background: url('icons/preview1.png') no-repeat center;
+}
+
+.l-icon-page_white_delete {
+	background: url('icons/page_white_delete.png') no-repeat center;
+}
+
+.l-icon-printer {
+	background: url('icons/printer.png') no-repeat center;
+}
+
+.l-icon-table_edit {
+	background: url('icons/table_edit.png') no-repeat center;
+}
+
+.l-icon-accept {
+	background: url('icons/accept.png') no-repeat center;
+}
+
+.l-icon-nullify {
+	background: url('icons/nullify.png') no-repeat center;
+}
+
+.l-icon-cancel {
+	background: url('icons/cancel.png') no-repeat center;
+}
+
+.l-icon-copy {
+	background: url('icons/copy.gif') no-repeat center;
+}
+
+.l-icon-server_start {
+	background: url('icons/server_start.gif') no-repeat center;
+}
+
+.l-icon-server_stop {
+	background: url('icons/server_stop.gif') no-repeat center;
+}
+
+.l-icon-database_add {
+	background: url('icons/database_add.gif') no-repeat center;
+}
+
+.l-icon-cog {
+	background: url('icons/cog.png') no-repeat center;
+}
+
+.l-icon-bricks_gear {
+	background: url('icons/bricks_gear.png') no-repeat center;
+}
+
+.l-icon-flag1 {
+	background: url('icons/flag1.gif') no-repeat center;
+}
+
+.l-icon-flag2 {
+	background: url('icons/flag2.gif') no-repeat center;
+}
+.l-icon-grid {
+	background: url('icons/grid.gif') no-repeat center;
+}
+
+.l-icon-report {
+	background: url('icons/report.png') no-repeat center;
+}
+
+.l-icon-group {
+	background: url('icons/group.png') no-repeat center;
+}
+
+.l-icon-edit-icon {
+	background: url('icons/edit-icon.gif') no-repeat center;
+}
+.l-icon-password {
+	background: url('icons/password_bg.gif') no-repeat center;
+}
+.l-icon-down {
+	background: url('icons/down.gif') no-repeat center;
+}
+.l-icon-count {
+	background: url('icons/calendar_edit.png') no-repeat center;
+}
+
+.l-icon-server-print {
+	background: url('icons/server-print.png') no-repeat center;
+}
+
+.l-icon-preview {
+	background: url('icons/preview.png') no-repeat center;
+}
+
+.l-icon-pdf-print {
+	background: url('icons/pdf-print.png') no-repeat center;
+}
+
+.l-icon-pdf {
+	background: url('icons/pdf.png') no-repeat center;
+}
+
+.l-icon-flash-print {
+	background: url('icons/flash-print.png') no-repeat center;
+}
+
+.l-icon-file {
+	background: url('icons/file.png') no-repeat center;
+}
+
+.l-icon-excel {
+	background: url('icons/excel.png') no-repeat center;
+}
+
+.l-icon-applet-print {
+	background: url('icons/applet-print.png') no-repeat center;
+}
+
+.l-icon-word {
+	background: url('icons/word.png') no-repeat center;
+}
+
+.l-icon-page-first-disabled {
+	background: url('icons/page-first-disabled.gif') no-repeat center;
+}
+
+.l-icon-page-last-disabled {
+	background: url('icons/page-last-disabled.gif') no-repeat center;
+}
+
+.l-icon-page-next-disabled {
+	background: url('icons/page-next-disabled.gif') no-repeat center;
+}
+
+.l-icon-page-prev-disabled {
+	background: url('icons/page-prev-disabled.gif') no-repeat center;
+}
+
+.l-icon-page-first {
+	background: url('icons/page-first.gif') no-repeat center;
+}
+
+.l-icon-page-last {
+	background: url('icons/page-last.gif') no-repeat center;
+}
+
+.l-icon-page-next {
+	background: url('icons/page-next.gif') no-repeat center;
+}
+
+.l-icon-page-prev {
+	background: url('icons/page-prev.gif') no-repeat center;
+}
+
+.l-icon-saveandnext {
+	background: url('icons/saveandnext.gif') no-repeat center;
+}
+
+.l-icon-saveall {
+	background: url('icons/saveall.gif') no-repeat center;
+}
+
+.l-icon-add {
+	background: url('icons/add.gif') no-repeat center;
+}
+
+.l-icon-delete {
+	background: url('icons/delete.gif') no-repeat center;
+}
+
+.l-icon-view {
+	background: url('icons/view.gif') no-repeat center;
+}
+
+.l-icon-back {
+	background: url('icons/back.gif') no-repeat center;
+}
+
+.l-icon-bluebook {
+	background: url('icons/bluebook.gif') no-repeat center;
+}
+
+.l-icon-bookpen {
+	background: url('icons/bookpen.gif') no-repeat center;
+}
+
+.l-icon-coffee {
+	background: url('icons/coffee.gif') no-repeat center;
+}
+
+.l-icon-cut {
+	background: url('icons/cut.gif') no-repeat center;
+}
+
+.l-icon-discuss {
+	background: url('icons/discuss.gif') no-repeat center;
+}
+
+.l-icon-graywarn {
+	background: url('icons/graywarn.gif') no-repeat center;
+}
+
+.l-icon-greenwarn {
+	background: url('icons/greenwarn.gif') no-repeat center;
+}
+
+.l-icon-help {
+	background: url('icons/help.gif') no-repeat center;
+}
+
+.l-icon-home {
+	background: url('icons/home.gif') no-repeat center;
+}
+
+.l-icon-lock {
+	background: url('icons/lock.gif') no-repeat center;
+}
+
+.l-icon-logout {
+	background: url('icons/logout.gif') no-repeat center;
+}
+
+.l-icon-mailbox {
+	background: url('icons/mailbox.gif') no-repeat center;
+}
+
+.l-icon-memeber {
+	background: url('icons/memeber.gif') no-repeat center;
+}
+
+.l-icon-modify {
+	background: url('icons/modify.gif') no-repeat center;
+}
+
+.l-icon-msn {
+	background: url('icons/msn.gif') no-repeat center;
+}
+
+.l-icon-ok {
+	background: url('icons/ok.gif') no-repeat center;
+}
+
+.l-icon-outbox {
+	background: url('icons/outbox.gif') no-repeat center;
+}
+
+.l-icon-pager {
+	background: url('icons/pager.gif') no-repeat center;
+}
+
+.l-icon-photograph {
+	background: url('icons/photograph.gif') no-repeat center;
+}
+
+.l-icon-prev {
+	background: url('icons/prev.gif') no-repeat center;
+}
+
+.l-icon-print {
+	background: url('icons/print.gif') no-repeat center;
+}
+
+.l-icon-qq {
+	background: url('icons/qq.gif') no-repeat center;
+}
+
+.l-icon-refresh {
+	background: url('icons/refresh.gif') no-repeat center;
+}
+
+.l-icon-right {
+	background: url('icons/right.gif') no-repeat center;
+}
+
+.l-icon-save-disabled {
+	background: url('icons/save-disabled.gif') no-repeat center;
+}
+
+.l-icon-save {
+	background: url('icons/save.gif') no-repeat center;
+}
+
+.l-icon-save-icon {
+	background: url('icons/save-icon.gif') no-repeat center;
+}
+
+.l-icon-search {
+	background: url('icons/search.gif') no-repeat center;
+}
+
+.l-icon-search2 {
+	background: url('icons/search2.gif') no-repeat center;
+}
+
+.l-icon-settings {
+	background: url('icons/settings.gif') no-repeat center;
+}
+
+.l-icon-TRUE {
+	background: url('icons/TRUE.gif') no-repeat center;
+}
+
+.l-icon-up {
+	background: url('icons/up.gif') no-repeat center;
+}
+
+.l-icon-down {
+	background: url('icons/down.gif') no-repeat center;
+}
+
+.l-icon-role {
+	background: url('icons/role.gif') no-repeat center;
+}
+
+.l-icon-config {
+	background: url('icons/config.gif') no-repeat center;
+}
+
+.l-icon-address {
+	background: url('icons/address.gif') no-repeat center;
+}
+
+.l-icon-process {
+	background: url('icons/process.gif') no-repeat center;
+}
+
+.l-icon-archives {
+	background: url('icons/archives.gif') no-repeat center;
+}
+
+.l-icon-attibutes {
+	background: url('icons/attibutes.gif') no-repeat center;
+}
+
+.l-icon-busy {
+	background: url('icons/busy.gif') no-repeat center;
+}
+
+.l-icon-calendar {
+	background: url('icons/calendar.gif') no-repeat center;
+}
+
+.l-icon-comment {
+	background: url('icons/comment.gif') no-repeat center;
+}
+
+.l-icon-plus {
+	background: url('icons/plus.gif') no-repeat center;
+}
+
+.l-icon-communication {
+	background: url('icons/communication.gif') no-repeat center;
+}
+
+.l-icon-customers {
+	background: url('icons/customers.gif') no-repeat center;
+}
+
+.l-icon-database {
+	background: url('icons/database.gif') no-repeat center;
+}
+
+.l-icon-myaccount {
+	background: url('icons/myaccount.gif') no-repeat center;
+}
+.l-icon-monitor-edit {
+	background: url('icons/monitor_edit.png') no-repeat center;
+}
+.l-icon-monitor-go {
+	background: url('icons/monitor_go.png') no-repeat center;
+}
+.l-icon-monitor-lightning {
+	background: url('icons/monitor_lightning.png') no-repeat center;
+}
+.l-icon-monitor-delete {
+	background: url('icons/monitor_delete.png') no-repeat center;
+}

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:oscache="http://www.springmodules.org/schema/oscache"
+	xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+		
+    <!-- 开启@AspectJ切面驱动 声明自动为spring容器中那些配置@aspectJ切面的bean创建代理，织入切面-->
+	<aop:aspectj-autoproxy/>
+	<!-- 开启注解方式来注入bean -->
+	<context:component-scan base-package="com.cp">
+		<!-- 配置自己设定的过滤条件 regex包过滤 所有匹配下面的包路径里面的类全部被spring实例化 -->
+		<context:include-filter type="regex" expression=".*.common.*"/>
+		<context:include-filter type="regex" expression=".*.aop.*"/>
+		<!-- 配置自己设定的过滤条件 aspectj类名称过滤 所有继承和扩展自Base的类都被实例化 -->
+		<context:include-filter type="aspectj" expression="com.cp.epa.base.Base+"/>
+	</context:component-scan>			
+	<!-- 数据源配置 -->  
+    <!-- Proxool 数据源配置 -->
+	<bean id="dataSourceTarget" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		  p:driverClassName="org.logicalcobwebs.proxool.ProxoolDriver"
+		  p:url="proxool.oracle10g"/> 
+    <!-- 配置p6spy 日志管理器 -->
+	<bean id="dataSource" class="com.p6spy.engine.spy.P6DataSource">
+	    <constructor-arg >
+	       <ref bean="dataSourceTarget"/>
+	    </constructor-arg>
+	</bean>
+	
+	<!-- 读取hibernate.properties文件 -->
+	<!--<context:property-placeholder location="classpath*:/hibernate.properties"/> -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  <!-- 该方式可以加载其他属性文件，并可以在程序中通过@Value("#{prop.XXX}获取值，该值的生成是在spring启动时生成") -->
+    	<property name="locations"> <!-- PropertyPlaceholderConfigurer类中有个locations属性，接收的是一个数组，即我们可以在下面配好多个properties文件 -->  
+        	<array>  
+            	<value>classpath*:/hibernate.properties</value>  
+        	</array>  
+    	</property>  
+    </bean>  
+	
+	<!-- 配置sessionFactory -->	  
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<!-- 配置Hibernate拦截器,自动填充数据的插入、更新时间 以及操作人员-->
+		<property name="entityInterceptor" ref="entityInterceotor" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" >
+			<list>
+		        <value>com.cp.**.entity</value>
+    		</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
+				<!-- 数据库批量查询数 -->
+				<prop key="hibernate.jdbc.fetch_size">${hibernate.jdbc.fetch_size}</prop>
+				<!-- 数据库批量更新数 -->  
+				<prop key="hibernate.jdbc.batch_size">${hibernate.jdbc.batch_size}</prop>
+				<!-- 关于大数据clob类型的处理 -->
+				<prop key="hibernate.connection.SetBigStringTryClob">${hibernate.connection.SetBigStringTryClob}</prop>
+				<prop key="javax.persistence.validation.mode">${javax.persistence.validation.mode}</prop>
+				<!--  <prop key="hibernate.current_session_context_class">${hibernate.current_session_context_class}</prop>-->
+				<!-- 二级缓存 -->
+				<!-- 是否提供二级缓存 默认是false -->
+				<prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+				<!-- 缓存提供商 -->
+				<prop key="hibernate.cache.provider_class">${hibernate.cache.provider_class}</prop>
+				<!-- 查询缓存关闭，一般情况下不开启 默认是false-->
+				<prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+				<!-- 收集与统计功能开关 -->
+				<prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>	
+				<!-- 设置使用结构化方式维护缓存项 这项配置与hibernate.generate_statistics联合使用用来统计缓存项并进行额外操作 -->
+				<prop key="hibernate.cache.use_structured_entries">${hibernate.cache.use_structured_entries}</prop>			
+			</props>
+		</property>
+	</bean>	
+	<!-- 配置HibernateTemplate -->
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate" p:sessionFactory-ref="sessionFactory"/>
+	<!-- 配置JDBCTemplate -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" p:dataSource-ref="dataSource"/>   	
+	<!-- 事物管理配置 -->
+	<bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager" p:sessionFactory-ref="sessionFactory"/>
+	<!-- 注解模式 声明式事物管理配置 -->
+	<tx:annotation-driven transaction-manager="txManager"/>
+	<!-- XML 声明式事物管理配置 -->
+	<!-- 事物切面的配置 -->
+	<aop:config>
+		<aop:pointcut id="eapService" expression="within(com.cp.epa.base.IBaseService+)" />
+		<aop:advisor pointcut-ref="eapService" advice-ref="txAdvice" />
+	</aop:config>
+	<!-- 配置事物的传播特性 -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED"/>
+			<tx:method name="create*" propagation="REQUIRED"/>
+			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="insert*" propagation="REQUIRED"/>
+			<tx:method name="edit*" propagation="REQUIRED"/>
+			<tx:method name="operate*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="modify*" propagation="REQUIRED"/>
+			<tx:method name="alter*" propagation="REQUIRED"/>
+			<tx:method name="delete*" propagation="REQUIRED"/>
+			<tx:method name="remove*" propagation="REQUIRED"/>
+			
+			<tx:method name="enable*" propagation="REQUIRED"/>
+			<tx:method name="disable*" propagation="REQUIRED"/>
+			<tx:method name="grant*" propagation="REQUIRED"/>
+			<tx:method name="allot*" propagation="REQUIRED"/>
+			<tx:method name="check*" propagation="REQUIRED"/>
+			<tx:method name="cancel*" propagation="REQUIRED"/>
+			<tx:method name="refresh*" propagation="REQUIRED"/>
+			<tx:method name="quartz*" propagation="REQUIRED"/>
+			<tx:method name="approve*" propagation="REQUIRED"/>
+			<tx:method name="on*" propagation="REQUIRED"/>
+			
+			<!-- <tx:method name="*" propagation="REQUIRED"/>-->
+			<tx:method name="*" read-only="true"/> 
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- 采用OScache的方法及缓存 
+	<oscache:config configLocation="classpath:oscache.properties" id="cacheProvider"/>  
+    <oscache:annotations providerId="cacheProvider">  
+        <oscache:caching id="caching" cronExpression="0 1 * * *" refreshPeriod="86400"/>  
+        <oscache:flushing id="flushing"/>  
+    </oscache:annotations>  
+    <bean id="cacheManager" class="org.springmodules.cache.provider.oscache.OsCacheManagerFactoryBean">    
+    	<property name="configLocation" value="classpath:oscache.properties" />    
+	<bean>   
+	-->
+	<!-- CGLIB模式下配置的AOP拦截异常，目前存在问题
+	<bean name="beanNameAutoProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator"
+		p:beanNames="*ServiceImpl,*DaoImpl"
+		p:interceptorNames="exceptionAspect_temp"
+	/>
+	 --> 	 
+	 
+	<!-- 配置对于业务对象使用号码对象的处理的AOP -->
+ 	<aop:config>
+    	<!--定义一个切面类-->
+    	<aop:aspect id="idAspect" ref="idOperAspect"> 
+       		<!-- 定义切入点 -->
+       		<aop:pointcut id="targetNumber" expression="execution(* com.cp.epa.base.IBaseDao+.insert(..)) and !within(com.cp.epa.*.dao.impl.*)"/>
+       		<!-- <aop:pointcut id="target" expression="execution(* com.zhongpin.pap.base.IBaseDao+.insert(..))"/>-->
+           	<!-- 设置通知类型 -->
+           	<aop:before pointcut-ref="targetNumber" method="doBefore"/>
+        </aop:aspect>
+    </aop:config>
+    
+    <!-- 配置数据权限对象处理 
+ 	<aop:config>-->
+    	<!--定义一个切面类
+    	<aop:aspect id="authority" ref="dataAuthorityAspect">--> 
+       		<!-- 定义切入点 
+       		<aop:pointcut id="target" expression="execution(* com.zhongpin.pap.utils.HqlModel.buildClassSelectHql(..))"/>-->
+           	<!-- 设置通知类型 
+           	<aop:before pointcut-ref="target" method="doBefore"/>
+        </aop:aspect>
+    </aop:config>-->
+    
+    <!-- 变更日志管理 -->
+ 	<aop:config>
+    	<!--定义一个切面类--> 
+    	<aop:aspect id="modifyLog" ref="modifyLogAspect">
+        	<!-- 定义切入点 -->
+       		<aop:pointcut id="targetModify" expression="execution(* com.cp.epa.base.IBaseDao.updateHql(..)) or execution(* com.cp.epa.base.IBaseDao.update(..)) or execution(* com.cp.epa.base.IBaseDao.merge(..)) or execution(* com.cp.epa.utils.HqlModel.updateHqlModelById(..))"/>
+        	<!-- 设置通知类型 -->
+        	<aop:before pointcut-ref="targetModify" method="doBefore"/>
+        </aop:aspect>
+    </aop:config>
+    
+    <!-- 程序跟踪AOP -->
+ 	<aop:config>
+    	<!--定义一个切面类--> 
+    	<aop:aspect id="serviceAspect" ref="debugServiceAspect" >
+       		<!-- 定义切入点 -->
+       		<!-- <aop:pointcut id="target" expression="execution(* com.zhongpin.pap.base.IBaseDao+.insert(..)) and !within(com.zhongpin.pap.*.dao.impl.*)"/> -->
+            <aop:pointcut id="targetService" expression="execution(* com.cp.epa.base.IBaseService+.*(..)) and !within(com.cp.epa.log.services.IOperateLogService+) and !within(com.cp.epa.bussobj.services.impl.*) and !within(com.cp.epa.debug.services.impl.*)"/>
+            <!-- 设置通知类型 -->
+            <aop:around pointcut-ref="targetService" method="doAround"/>
+        </aop:aspect>
+    </aop:config>
+    
+    <!-- SQL跟踪AOP -->
+ 	<aop:config>
+ 	    <!--定义一个切面类-->
+    	<aop:aspect id="daoAspect" ref="debugDaoAspect">
+    	    <!-- 定义切入点 -->
+       		<aop:pointcut id="targetSql" expression="execution(* com.cp.epa.base.IBaseDao+.*(..)) and !within(com.cp.epa.log.dao.IOperateLogDao+) and !within(com.cp.epa.bussobj.dao.impl.*) and !within(com.cp.epa.debug.dao.impl.*)"/>
+       		 <!-- 设置通知类型 -->
+            <aop:around pointcut-ref="targetSql" method="doAround"/>
+        </aop:aspect>
+    </aop:config>
+     
+	<!-- 配置线程池 异步线程池 -->  
+	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">  
+	    <!-- 线程池维护线程的最少数量 -->  
+	    <property name="corePoolSize" value="10" />  
+	    <!-- 线程池维护线程的最大数量 -->  
+	    <property name="maxPoolSize" value="100" />  
+	    <!-- 线程池所使用的缓冲队列 mainExecutor.maxSize -->  
+	    <property name="queueCapacity" value="1000" />  
+	    <!-- 线程池维护线程所允许的空闲时间 -->  
+	    <property name="keepAliveSeconds" value="3000" />  
+	    <!-- 线程池对拒绝任务(无线程可用)的处理策略 -->  
+	    <property name="rejectedExecutionHandler">  
+	        <bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />  
+	    </property>  
+	</bean>  
+</beans>
