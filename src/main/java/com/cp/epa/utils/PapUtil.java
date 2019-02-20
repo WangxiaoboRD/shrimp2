@@ -1194,6 +1194,7 @@ public class PapUtil {
 		//System.out.println(compareDate("2017-10-10", "2017-10-08"));
 		System.out.println(getWeeks("1801"));
 		Integer.toHexString(100);
+		System.out.println("testSomething");
 		
 	}
 }
